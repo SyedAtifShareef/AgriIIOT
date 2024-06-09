@@ -1,48 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agri IIOT Worker Login</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="workerlogin.css">
-</head>
-<body>
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="row justify-content-center w-100">
-            <div class="col-md-8 col-lg-7">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3>Agri IIOT worker Login</h3>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </form>
-                    </div>
+    <link rel="stylesheet" href="workerlogin.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+  </head>
+  <body>
+    <div
+      class="container d-flex align-items-center justify-content-center min-vh-100"
+    >
+      <div class="row justify-content-center w-100">
+        <div class="col-md-8 col-lg-7">
+          <div class="card">
+            <div class="titleHomepage" class="card-header text-center">
+              <h3>Agri IIOT worker Login</h3>
+              <button onclick="window.location.href = '/index.html'" id="btn-logout"><span id="logoutButton"  class="material-symbols-outlined">
+                logout
+                </span></button>
+            </div>
+            <div class="card-body">
+              <form class="form">
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                  />
                 </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </div>
+                <button
+                  type="submit" 
+                  class="btn btn-primary btn-block"
+                >
+                  Login
+                </button>
+              </form>
             </div>
+          </div>
         </div>
-        <footer class="footer mt-auto py-3 bg-light text-center">
-            <div class="container">
-                <span class="text-muted">&copy; 2024 Agriculture IIOT™. All rights reserved.</span>
-            </div>
-        </footer>
+      </div>
+      <footer class="footer mt-auto py-3 bg-light text-center">
+        <div class="container">
+          <span class="text-muted"
+            >&copy; 2024 Agriculture IIOT™. All rights reserved.</span
+          >
+        </div>
+      </footer>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script> -->
+    <script type="module">
+      import { initializeApp} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";  
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+      import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+
+    //   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyDlsov3LNCBgTA4jbBM3827Ft5xG66mOSo",
+        authDomain: "agri-iiot.firebaseapp.com",
+        databaseURL:
+          "https://agri-iiot-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "agri-iiot",
+        storageBucket: "agri-iiot.appspot.com",
+        messagingSenderId: "657924866063",
+        appId: "1:657924866063:web:969e9e38cca0bfcd85637a",
+        measurementId: "G-E1Q9TJSWL8",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      const form = document.querySelector('.form');
+      form.addEventListener('submit', workerLogin);
+      function getUserDetails(uid){
+        let result;
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `Users/${uid}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+            result = snapshot.val();
+            console.log(result)
+            handleRedirect(result);
+        } else {
+            console.log("No data available");
+        }
+        }).catch((error) => {
+        console.error(error);
+        });
+      }
+      
+      function handleRedirect(res){
+        console.log('handleredirect called with values '+ res)
+        if (res.Role === "Worker") {
+          window.location.href = "workerpage.html";
+        } else {
+          alert("Invalid login attempt for Worker."); 
+        }
+    }
+
+      function workerLogin(e) {
+        e.preventDefault();
+        console.log('worker login called')
+        console.log(auth);
+        const Email = document.getElementById("email").value;
+        const Password = document.getElementById("password").value;
+        console.log(Email,Password, signInWithEmailAndPassword)
+        signInWithEmailAndPassword(auth, Email, Password)
+          .then((userCredential) => {
+            console.log(userCredential)
+            const user = userCredential.user;
+            console.log(user);
+            localStorage.setItem('userAuth', user.uid)
+            return getUserDetails(user.uid);
+          }) 
+          .catch((error) => {
+            console.error("Error during sign-in:", error);
+            alert("Login failed. Please try again.");
+          });
+        }
+    </script>
+  </body>
 </html>

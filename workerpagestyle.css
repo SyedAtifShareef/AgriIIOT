@@ -2,6 +2,7 @@
 body{
     background: linear-gradient(135deg, #f8f9fa 0%, #a6c0fe 100%);
 }
+
 .chart{
     height: 120%;
     width: 100%;
@@ -14,8 +15,13 @@ body{
  width: 10%;
  height: auto;   
 }
-
-
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
 
 
 .material-symbols-outlined {
@@ -31,8 +37,6 @@ body{
 }
 #btn-logout{
     margin-bottom:10px ;
-    display: flex;
-    align-items: center;
 }
 .h5{
     font-size: 4rem;
