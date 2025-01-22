@@ -22,8 +22,8 @@ let tempArr2 = [30];
 let tempArr3=[30];
 
 
-let humiArr = [68.2];
-let humiArr2=[68.2];
+let humiArr = [58.2];
+let humiArr2=[58.2];
 let lightbArr=[30];
 let count=0;
 
@@ -279,7 +279,7 @@ function updatePlot() {
       xaxis: { title: "Time (HH:MM:SS)" },
       yaxis: {
         title: "Humidity (%)",
-        range: [55, 95], // Adjust the range of the y-axis as needed
+        range: [40, 95], // Adjust the range of the y-axis as needed
       },
     }
   );
