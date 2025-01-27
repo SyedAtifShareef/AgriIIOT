@@ -6,16 +6,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebas
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-apiKey: "AIzaSyDlsov3LNCBgTA4jbBM3827Ft5xG66mOSo",
-authDomain: "agri-iiot.firebaseapp.com",
-databaseURL: "https://agri-iiot-default-rtdb.asia-southeast1.firebasedatabase.app",
-projectId: "agri-iiot",
-storageBucket: "agri-iiot.appspot.com",
-messagingSenderId: "657924866063",
-appId: "1:657924866063:web:969e9e38cca0bfcd85637a",
-measurementId: "G-E1Q9TJSWL8"
-};
+
 
 let tempArr = [30];
 let tempArr2 = [30];
