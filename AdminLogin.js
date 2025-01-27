@@ -6,17 +6,6 @@ import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs
 
     //   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
       
-      const firebaseConfig = {
-        apiKey: "AIzaSyDlsov3LNCBgTA4jbBM3827Ft5xG66mOSo",
-        authDomain: "agri-iiot.firebaseapp.com",
-        databaseURL:
-          "https://agri-iiot-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "agri-iiot",
-        storageBucket: "agri-iiot.appspot.com",
-        messagingSenderId: "657924866063",
-        appId: "1:657924866063:web:969e9e38cca0bfcd85637a",
-        measurementId: "G-E1Q9TJSWL8",
-      };
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
