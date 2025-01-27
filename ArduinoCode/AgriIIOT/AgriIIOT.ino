@@ -7,12 +7,12 @@
 #define DTYPE DHT11   // Define DHT 11 or DHT22 sensor type
 #define ldr_pin A0    // define the light sensor pin to A0
 #define WIFI_SSID "IntraConnect"
-#define WIFI_PASSWORD "syed24409848"
-#define API_KEY "AIzaSyDlsov3LNCBgTA4jbBM3827Ft5xG66mOSo"
+#define WIFI_PASSWORD "?????????"
+#define API_KEY "writekey"
 #define DATABASE_URL "https://agri-iiot-default-rtdb.asia-southeast1.firebasedatabase.app/" 
 // user credintials
-#define USER_EMAIL "atifshareef7865@gmail.com"
-#define USER_PASSWORD "Ateef1234@"
+#define USER_EMAIL ""
+#define USER_PASSWORD ""
 
 FirebaseData fbdo;
 FirebaseAuth auth;
